@@ -6,12 +6,12 @@
 #!/usr/bin/python
 import sys
 #for mac running python3
-import tkinter as TK
-from tkinter import *
+#import tkinter as TK
+#from tkinter import *
 
 #for the pi running python3
-# import Tkinter as TK
-# from Tkinter import *
+import Tkinter as TK
+from Tkinter import *
 
 #window stuff
 window = TK.Tk()
@@ -60,11 +60,11 @@ def run():
 	else:	
 		if isRunning:
 			timeLeft['state'] = 'normal'
-			done['text'] = '...'
+			done['text'] = 'CONTINUE'
 			#stop timer
 			isRunning = False
 		else:
-			if done['text'] == '...':
+			if done['text'] == 'CONTINUE':
 				count = clock['text']
 			else:
 				count = IntVar()
@@ -91,7 +91,7 @@ timeLeft.config(width=3)
 timeLeft.bind(sequence='<KeyRelease>', func=updatetext)
 
 
-clock = TK.Label(mainFrame, font = (None,30), text=timeLeft.get())
+clock = TK.Label(mainFrame, font = (None,45), text=timeLeft.get())
 clock.pack()
 
 done = Button(mainFrame, text='START', command=run)
