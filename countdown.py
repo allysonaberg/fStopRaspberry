@@ -23,7 +23,9 @@ mainFrame.pack(expand=True)
 
 global isRunning
 global reset_it
+global testStopValue
 
+testStopValue = 0
 isRunning = False
 reset_it = False
 
@@ -79,9 +81,21 @@ def reset():
 	reset_it = True
 	run()
 
+def up():
+    global testStopValue
+    print('up')
+    testStopValue +=1
+    testStop['text'] = testStopValue
+
+def down():
+    global testStopValue
+    print('down')
+    testStopValue -=1
+    testStop['text'] = testStopValue
+
+    
 def updatetext(event):
-    clock['text'] = timeLeft.get()
-    print(timeLeft.get())
+    clock['text'] = int(timeLeft.get()) + int(testStopValue)
     window.update_idletasks()  
 
 timeLeft = Entry(mainFrame)
@@ -90,13 +104,22 @@ timeLeft.focus_set()
 timeLeft.config(width=3)
 timeLeft.bind(sequence='<KeyRelease>', func=updatetext)
 
+testStopValue = 0
+testStop = TK.Label(mainFrame, font=(None, 20), text = testStopValue)
+testStop.pack()
+
+testStopButton1 = Button(mainFrame, text='+', command=up)
+testStopButton1.bind(sequence='<KeyRelease>', func=updatetext)
+testStopButton1.pack()
+
+testStopButton2 = Button(mainFrame, text='-', command=down)
+testStopButton2.pack()
 
 clock = TK.Label(mainFrame, font = (None,45), text=timeLeft.get())
 clock.pack()
 
 done = Button(mainFrame, text='START', command=run)
 done.pack()
-
 
 reset = Button(mainFrame, text='RESET', command=reset)
 reset.pack()
