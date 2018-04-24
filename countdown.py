@@ -1,7 +1,12 @@
 #!/usr/bin/python
 import sys
-import tkinter as TK
-from tkinter import *
+#for mac running python3
+#import Tkinter as TK
+#from Tkinter import *
+
+#for the pi running python3
+import Tkinter as TK
+from Tkinter import *
 import time
 
 #window stuff
