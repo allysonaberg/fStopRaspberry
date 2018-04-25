@@ -1,7 +1,7 @@
 #TODO:
 #other buttons (for actual stops)
 #keyboard (numbers)
-#does it have miliseconds?
+#add in possibility of DECISECOND
 
 #!/usr/bin/python
 import sys
@@ -15,8 +15,11 @@ from tkinter import *
 
 global isRunning
 global reset_it
-global testStopValue
-testStopValue = 0
+global stopValues
+stopValues = {}
+global stop
+stop = {}
+
 isRunning = False
 reset_it = False
 
@@ -78,7 +81,7 @@ def run():
 				count = clock['text']
 			else:
 				count = IntVar()
-				count = int(timeLeft.get()) + int(testStopValue)
+				count = int(clock['text'])
 
 			done['text'] = 'STOP'
 			isRunning = True
@@ -90,25 +93,31 @@ def reset():
 	run()
 
 def up(val):
-    global testStopValue
-    testStopValue +=1
-    updateTextButton()
+    global stopValues
+    global isRunning
+
+    if isRunning == False:
+    	stopValues[val] +=1
+    	updateTextButton(val)
 
 def down(val):
-    global testStopValue
-    if int(testStopValue) > 0:
-    	testStopValue -=1
-    	updateTextButton()
+    global stopValues
+    global isRunning
+
+    if isRunning == False:
+    	if int(stopValues[val]) > 0:
+    		stopValues[val] -=1
+    		updateTextButton(val)
 ################### FUNCTIONAL METHODS ##########################   
 
 ################### UPDATE METHODS ##########################   
 def updatetext(event):
-    clock['text'] = int(timeLeft.get()) + int(testStopValue)
+    clock['text'] = int(timeLeft.get()) + int(sum(stopValues.values()))
     window.update_idletasks()  
 
-def updateTextButton():
-    testStop['text'] = testStopValue
-    clock['text'] = int(timeLeft.get()) + int(testStopValue)
+def updateTextButton(val):
+    stop[val]['text'] = stopValues[val]
+    clock['text'] = int(timeLeft.get()) + int(sum(stopValues.values()))
     window.update_idletasks()
 ################### UPDATE METHODS ##########################   
 
@@ -132,35 +141,35 @@ reset.pack()
 
 
 ################### F/STOP BUTTONS ##########################
-testStopValue = 0
-testStop = TK.Label(topFrame, font=(None, 15), text = testStopValue)
-testStop.grid(row=1,column=3)
+stopValues[0] = 0
+stop[0] = TK.Label(topFrame, font=(None, 15), text = stopValues[0])
+stop[0].grid(row=1,column=3)
 
-testAddButton = Button(topFrame, text='+', command=up)
-testAddButton.grid(row=5,column=4)
+addButton0 = Button(topFrame, text='+', command=lambda: up(0))
+addButton0.grid(row=5,column=4)
 
-testSubButton = Button(topFrame, text='-', command=down)
-testSubButton.grid(row=5,column=2)
+subButton0 = Button(topFrame, text='-', command=lambda: down(0))
+subButton0.grid(row=5,column=2)
 
-testStopValue1 = 0
-testStop = TK.Label(topFrame, font=(None, 15), text = testStopValue1)
-testStop.grid(row=1,column=7)
+stopValues[1] = 0
+stop[1] = TK.Label(topFrame, font=(None, 15), text = stopValues[1])
+stop[1].grid(row=1,column=7)
 
-testAddButton1 = Button(topFrame, text='+', command=up)
-testAddButton1.grid(row=5,column=8)
+addButton1 = Button(topFrame, text='+', command=lambda: up(1))
+addButton1.grid(row=5,column=8)
 
-testSubButton1 = Button(topFrame, text='-', command=down)
-testSubButton1.grid(row=5,column=6)
+subButton1 = Button(topFrame, text='-', command=lambda: down(1))
+subButton1.grid(row=5,column=6)
 
-testStopValue2 = 0
-testStop = TK.Label(topFrame, font=(None, 15), text = testStopValue2)
-testStop.grid(row=1,column=11)
+stopValues[2] = 0
+stop[2] = TK.Label(topFrame, font=(None, 15), text = stopValues[2])
+stop[2].grid(row=1,column=11)
 
-testAddButton2 = Button(topFrame, text='+', command=up)
-testAddButton2.grid(row=5,column=12)
+addButton2 = Button(topFrame, text='+', command=lambda: up(2))
+addButton2.grid(row=5,column=12)
 
-testSubButton2 = Button(topFrame, text='-', command=down)
-testSubButton2.grid(row=5,column=10)
+subButton2 = Button(topFrame, text='-', command=lambda: down(2))
+subButton2.grid(row=5,column=10)
 ################### F/STOP BUTTONS ##########################
 
 
