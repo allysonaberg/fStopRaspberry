@@ -26,7 +26,7 @@ reset_it = False
 ################### WINDOW SETUP ##########################   
 window = TK.Tk()
 window.title('countdown timer')
-window.geometry("500x300")
+window.geometry("500x250")
 
 mainFrame = Frame(window)
 mainFrame.pack()
@@ -55,6 +55,7 @@ def countdown(sec, deci):
 			window.after(100, countdown, sec - 1, 9)
 		else:
 			baseSeconds['state'] = 'normal'
+			baseDeciseconds['state'] = 'normal'
 			print('done')
 			clock['text'] = '0.0'
 			done['text'] = 'START'
@@ -69,7 +70,7 @@ def run():
 		baseSeconds['state'] = 'normal'
 		baseDeciseconds['state'] = 'normal'
 		count = IntVar()
-		count= baseSeconds.get() + baseDeciseconds.get()
+		count= str(baseSeconds.get()) + '.' + str(baseDeciseconds.get())
 		clock['text'] = count
 		isRunning = False
 		done['text'] = 'START'
@@ -88,20 +89,26 @@ def run():
 		#START/CONTINUE
 		else:
 			if done['text'] == 'CONTINUE':
-				count = clock['text']
+				count = str(clock['text'])
 			else:
 				count = str(clock['text'])
 
 			done['text'] = 'STOP'
 			isRunning = True
 			#TODO: MAKE THIS PARSE SMARTER
-			sec = int(count[0:2])
-			deci = int(count[3:])
+			sec = int(count.split('.')[0])
+			deci = int(count.split('.')[1])
 			print(deci)
 			countdown(sec, deci)
 
 def reset():
 	global reset_it
+	global stopValues
+
+	for key in stopValues:
+		stopValues[key] = 0
+		updateTextButton(key)
+
 	reset_it = True
 	run()
 
@@ -125,7 +132,7 @@ def down(val):
 
 ################### UPDATE METHODS ##########################   
 def updatetext(event):
-    clock['text'] = float(baseSeconds.get()) + float( "." + baseDeciseconds.get()) + int(sum(stopValues.values()))
+    clock['text'] = float(baseSeconds.get()) + float( "." + str(baseDeciseconds.get())) + int(sum(stopValues.values()))
     window.update_idletasks()  
 
 def updateTextButton(val):
@@ -141,12 +148,14 @@ baseSeconds.grid(row=0,column=7)
 baseSeconds.focus_set()
 baseSeconds.config(width=2)
 baseSeconds.bind(sequence='<KeyRelease>', func=updatetext)
+baseSeconds.insert(0, '0')
 
 baseDeciseconds = Entry(mainFrame)
 baseDeciseconds.grid(row=0,column=10)
 baseDeciseconds.focus_set()
 baseDeciseconds.config(width=1)
 baseDeciseconds.bind(sequence='<KeyRelease>', func=updatetext)
+baseDeciseconds.insert(0, '0')
 
 print(baseDeciseconds.get())
 clock = TK.Label(bottomFrame, font = (None,45), text=baseSeconds.get() + baseDeciseconds.get())
