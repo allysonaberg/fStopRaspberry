@@ -1,7 +1,6 @@
 #TODO:
 #other buttons (for actual stops)
 #keyboard (numbers)
-#add in possibility of DECISECOND
 
 #!/usr/bin/python
 import sys
@@ -40,20 +39,24 @@ bottomFrame.pack()
 ################### WINDOW SETUP ##########################   
 
 ################### FUNCTIONAL METHODS ##########################   
-def countdown(i):
+def countdown(sec, deci):
 	global isRunning
 	global reset_it
 	
 	if isRunning and reset_it == False:
-		timeLeft['state'] = 'disabled'
-		clock['text'] = i
-		if i > 0:
-			#run again after 1000 ms/1s
-			window.after(1000, countdown, i - 1)
+		baseSeconds['state'] = 'disabled'
+		baseDeciseconds['state'] = 'disabled'
+
+		clock['text'] = str(sec) + "." + str(deci)
+
+		if deci > 0:
+			window.after(100, countdown, sec, deci - 1)
+		elif sec > 0 and deci == 0:
+			window.after(100, countdown, sec - 1, 9)
 		else:
-			timeLeft['state'] = 'normal'
+			baseSeconds['state'] = 'normal'
 			print('done')
-			clock['text'] = '0'
+			clock['text'] = '0.0'
 			done['text'] = 'START'
 			isRunning = False
 
@@ -61,31 +64,41 @@ def run():
 	global isRunning
 	global reset_it
 
+	#RESET CASE
 	if reset_it:
-		timeLeft['state'] = 'normal'
+		baseSeconds['state'] = 'normal'
+		baseDeciseconds['state'] = 'normal'
 		count = IntVar()
-		count= timeLeft.get()
+		count= baseSeconds.get() + baseDeciseconds.get()
 		clock['text'] = count
 		isRunning = False
 		done['text'] = 'START'
 		reset_it = False
 
+	#OTHER RUNNING OPERATIONS
 	else:	
+		#PAUSED
 		if isRunning:
-			timeLeft['state'] = 'normal'
+			baseSeconds['state'] = 'normal'
+			baseDeciseconds['state'] = 'normal'
 			done['text'] = 'CONTINUE'
 			#stop timer
 			isRunning = False
+
+		#START/CONTINUE
 		else:
 			if done['text'] == 'CONTINUE':
 				count = clock['text']
 			else:
-				count = IntVar()
-				count = int(clock['text'])
+				count = str(clock['text'])
 
 			done['text'] = 'STOP'
 			isRunning = True
-			countdown(int(count))
+			#TODO: MAKE THIS PARSE SMARTER
+			sec = int(count[0:2])
+			deci = int(count[3:])
+			print(deci)
+			countdown(sec, deci)
 
 def reset():
 	global reset_it
@@ -112,24 +125,31 @@ def down(val):
 
 ################### UPDATE METHODS ##########################   
 def updatetext(event):
-    clock['text'] = int(timeLeft.get()) + int(sum(stopValues.values()))
+    clock['text'] = float(baseSeconds.get()) + float( "." + baseDeciseconds.get()) + int(sum(stopValues.values()))
     window.update_idletasks()  
 
 def updateTextButton(val):
     stop[val]['text'] = stopValues[val]
-    clock['text'] = int(timeLeft.get()) + int(sum(stopValues.values()))
+    clock['text'] = float(baseSeconds.get()) + float("." +baseDeciseconds.get()) + int(sum(stopValues.values()))
     window.update_idletasks()
 ################### UPDATE METHODS ##########################   
 
 
 ################### FUNCTIONAL BUTTONS ##########################
-timeLeft = Entry(mainFrame)
-timeLeft.grid(row=0,column=7, ipadx = 10)
-timeLeft.focus_set()
-timeLeft.config(width=4)
-timeLeft.bind(sequence='<KeyRelease>', func=updatetext)
+baseSeconds = Entry(mainFrame)
+baseSeconds.grid(row=0,column=7)
+baseSeconds.focus_set()
+baseSeconds.config(width=2)
+baseSeconds.bind(sequence='<KeyRelease>', func=updatetext)
 
-clock = TK.Label(bottomFrame, font = (None,45), text=timeLeft.get())
+baseDeciseconds = Entry(mainFrame)
+baseDeciseconds.grid(row=0,column=10)
+baseDeciseconds.focus_set()
+baseDeciseconds.config(width=1)
+baseDeciseconds.bind(sequence='<KeyRelease>', func=updatetext)
+
+print(baseDeciseconds.get())
+clock = TK.Label(bottomFrame, font = (None,45), text=baseSeconds.get() + baseDeciseconds.get())
 clock.pack()
 
 done = Button(bottomFrame, text='START', command=run)
