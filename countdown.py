@@ -5,8 +5,8 @@
 #!/usr/bin/python
 import sys
 #for mac running python3
-import tkinter as TK
-from tkinter import *
+# import tkinter as TK
+# from tkinter import *
 
 #for the pi running python3
 import Tkinter as TK
@@ -30,6 +30,7 @@ window.title('countdown timer')
 window.geometry("800x450")
 
 mainFrame = Frame(window)
+mainFrame.pack()
 
 topFrame = Frame(window)
 topFrame.pack()
