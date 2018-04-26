@@ -1,5 +1,5 @@
 #TODO:
-#other buttons (for actual stops)
+#get proper stop numbers in
 #keyboard (numbers)
 
 #!/usr/bin/python
@@ -26,10 +26,10 @@ reset_it = False
 ################### WINDOW SETUP ##########################   
 window = TK.Tk()
 window.title('countdown timer')
-window.geometry("500x250")
+window.attributes("-fullscreen", True)
 
 mainFrame = Frame(window)
-mainFrame.pack()
+mainFrame.pack(padx=0,pady=80)
 
 topFrame = Frame(window)
 topFrame.pack()
@@ -146,58 +146,58 @@ def updateTextButton(val):
 baseSeconds = Entry(mainFrame)
 baseSeconds.grid(row=0,column=7)
 baseSeconds.focus_set()
-baseSeconds.config(width=2)
+baseSeconds.config(width=2, font = (None, 75))
 baseSeconds.bind(sequence='<KeyRelease>', func=updatetext)
 baseSeconds.insert(0, '0')
 
 baseDeciseconds = Entry(mainFrame)
 baseDeciseconds.grid(row=0,column=10)
 baseDeciseconds.focus_set()
-baseDeciseconds.config(width=1)
+baseDeciseconds.config(width=1, font = (None, 75))
 baseDeciseconds.bind(sequence='<KeyRelease>', func=updatetext)
 baseDeciseconds.insert(0, '0')
 
 print(baseDeciseconds.get())
-clock = TK.Label(bottomFrame, font = (None,45), text=baseSeconds.get() + baseDeciseconds.get())
+clock = TK.Label(bottomFrame, font = (None,180), text=baseSeconds.get() + baseDeciseconds.get())
 clock.pack()
 
-done = Button(bottomFrame, text='START', command=run)
+done = Button(bottomFrame, text='START', command=run, font = (None, 65))
 done.pack()
 
-reset = Button(bottomFrame, text='RESET', command=reset)
+reset = Button(bottomFrame, text='RESET', command=reset, font = (None, 65))
 reset.pack()
 ################### FUNCTIONAL BUTTONS ##########################
 
 
 ################### F/STOP BUTTONS ##########################
 stopValues[0] = 0
-stop[0] = TK.Label(topFrame, font=(None, 15), text = stopValues[0])
+stop[0] = TK.Label(topFrame, font=(None, 55), text = stopValues[0])
 stop[0].grid(row=1,column=3)
 
-addButton0 = Button(topFrame, text='+', command=lambda: up(0))
+addButton0 = Button(topFrame, text='+', command=lambda: up(0), font = (None, 45))
 addButton0.grid(row=5,column=4)
 
-subButton0 = Button(topFrame, text='-', command=lambda: down(0))
+subButton0 = Button(topFrame, text='-', command=lambda: down(0), font = (None, 45))
 subButton0.grid(row=5,column=2)
 
 stopValues[1] = 0
-stop[1] = TK.Label(topFrame, font=(None, 15), text = stopValues[1])
+stop[1] = TK.Label(topFrame, font=(None, 55), text = stopValues[1])
 stop[1].grid(row=1,column=7)
 
-addButton1 = Button(topFrame, text='+', command=lambda: up(1))
+addButton1 = Button(topFrame, text='+', command=lambda: up(1), font = (None, 45))
 addButton1.grid(row=5,column=8)
 
-subButton1 = Button(topFrame, text='-', command=lambda: down(1))
+subButton1 = Button(topFrame, text='-', command=lambda: down(1), font = (None, 45))
 subButton1.grid(row=5,column=6)
 
 stopValues[2] = 0
-stop[2] = TK.Label(topFrame, font=(None, 15), text = stopValues[2])
+stop[2] = TK.Label(topFrame, font=(None, 55), text = stopValues[2])
 stop[2].grid(row=1,column=11)
 
-addButton2 = Button(topFrame, text='+', command=lambda: up(2))
+addButton2 = Button(topFrame, text='+', command=lambda: up(2), font = (None, 45))
 addButton2.grid(row=5,column=12)
 
-subButton2 = Button(topFrame, text='-', command=lambda: down(2))
+subButton2 = Button(topFrame, text='-', command=lambda: down(2),font = (None, 45))
 subButton2.grid(row=5,column=10)
 ################### F/STOP BUTTONS ##########################
 
