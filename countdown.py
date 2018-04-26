@@ -29,7 +29,7 @@ window.title('countdown timer')
 window.attributes("-fullscreen", True)
 
 mainFrame = Frame(window)
-mainFrame.pack(padx=0,pady=80)
+# mainFrame.pack(padx=0,pady=80)
 
 topFrame = Frame(window)
 topFrame.pack()
