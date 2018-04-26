@@ -5,8 +5,8 @@
 #!/usr/bin/python
 import sys
 #for mac running python3
-# import tkinter as TK
-# from tkinter import *
+import tkinter as TK
+from tkinter import *
 
 #for the pi running python3
 import Tkinter as TK
@@ -26,10 +26,10 @@ reset_it = False
 ################### WINDOW SETUP ##########################   
 window = TK.Tk()
 window.title('countdown timer')
-window.attributes("-fullscreen", True)
+# window.attributes("-fullscreen", True)
+window.geometry("800x450")
 
 mainFrame = Frame(window)
-mainFrame.pack(padx=0,pady=30)
 
 topFrame = Frame(window)
 topFrame.pack()
