@@ -5,12 +5,12 @@
 #!/usr/bin/python
 import sys
 #for mac running python3
-import tkinter as TK
-from tkinter import *
+# import tkinter as TK
+# from tkinter import *
 
 #for the pi running python3
-# import Tkinter as TK
-# from Tkinter import *
+import Tkinter as TK
+from Tkinter import *
 
 global isRunning
 global reset_it
