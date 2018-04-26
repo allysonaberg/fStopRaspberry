@@ -29,7 +29,7 @@ window.title('countdown timer')
 window.attributes("-fullscreen", True)
 
 mainFrame = Frame(window)
-# mainFrame.pack(padx=0,pady=80)
+mainFrame.pack(padx=0,pady=30)
 
 topFrame = Frame(window)
 topFrame.pack()
@@ -171,7 +171,7 @@ reset.pack()
 
 ################### F/STOP BUTTONS ##########################
 stopValues[0] = 0
-stop[0] = TK.Label(topFrame, font=(None, 25), text = stopValues[0])
+stop[0] = TK.Label(topFrame, font=(None, 35), text = stopValues[0])
 stop[0].grid(row=1,column=3)
 
 addButton0 = Button(topFrame, text='+', command=lambda: up(0), font = (None, 25))
