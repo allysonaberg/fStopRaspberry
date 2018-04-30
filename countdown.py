@@ -7,6 +7,8 @@ import sys
 #for mac running python3
 import tkinter as TK
 from tkinter import *
+from tkinter import ttk
+
 
 #for the pi running python3
 # import Tkinter as TK
@@ -27,20 +29,25 @@ baseDeciseconds = 0
 isRunning = False
 reset_it = False
 
+root_color = "black"
+
+
+
 
 ################### WINDOW SETUP ##########################   
 window = TK.Tk()
+window.configure(background=root_color)
 window.title('countdown timer')
 window.geometry("800x450")
 
-mainFrame = Frame(window)
-mainFrame.pack()
-
-topFrame = Frame(window)
-topFrame.pack()
+topFrame = Frame(window, bg='black')
+topFrame.grid(row=0,column=0)
 
 bottomFrame = Frame(window)
-bottomFrame.pack()
+bottomFrame.grid(row=8,column=0)
+
+# sideFrame = Frame(window)
+# sideFrame.pack()
 ################### WINDOW SETUP ##########################   
 
 ################### FUNCTIONAL METHODS ##########################   
@@ -144,52 +151,56 @@ def updateTextButton(val):
 
 
 ################### FUNCTIONAL BUTTONS ##########################
-clock = Button(bottomFrame, font = (None,100), text=baseSeconds + baseDeciseconds, command=run)
-clock.grid(row=3,column=10)
+clock = Button(topFrame, font = (None,100), text=baseSeconds + baseDeciseconds, command=run)
+clock.grid(row=3,column=20)
 
 ################### FUNCTIONAL BUTTONS ##########################
 
 
 ################### F/STOP BUTTONS ##########################
+
+buttonImage = TK.PhotoImage(file="button.png")
+
+
 stopValues[0] = 0
 stop[0] = TK.Label(topFrame, font=(None, 35), text = stopValues[0])
-stop[0].grid(row=1,column=3)
+stop[0].grid(row=3,column=2)
 
-addButton0 = Button(topFrame, text='+', command=lambda: up(0,10), font = (None, 25))
-addButton0.grid(row=5,column=4)
+addButton0 = Button(topFrame, image=buttonImage, command=lambda:up(0,10), highlightthickness=0, borderwidth=0)
+addButton0.grid(row=1,column=2)
 
-subButton0 = Button(topFrame, text='-', command=lambda: down(0,10), font = (None, 25))
+subButton0 = Button(topFrame, image=buttonImage, command=lambda:down(0,10),highlightthickness=0, borderwidth=0)
 subButton0.grid(row=5,column=2)
 
 stopValues[1] = 0
 stop[1] = TK.Label(topFrame, font=(None, 35), text = stopValues[1])
-stop[1].grid(row=1,column=7) 
+stop[1].grid(row=3,column=7) 
 
-addButton1 = Button(topFrame, text='+', command=lambda: up(1,5), font = (None, 25))
-addButton1.grid(row=5,column=8)
+addButton1 = Button(topFrame, image=buttonImage, command=lambda: up(1,5), font = (None, 25), highlightthickness=0, borderwidth=0)
+addButton1.grid(row=1,column=7)
 
-subButton1 = Button(topFrame, text='-', command=lambda: down(1,5), font = (None, 25))
-subButton1.grid(row=5,column=6)
+subButton1 = Button(topFrame, image=buttonImage, command=lambda: down(1,5), font = (None, 25), highlightthickness=0, borderwidth=0)
+subButton1.grid(row=5,column=7)
 
 stopValues[2] = 0
 stop[2] = TK.Label(topFrame, font=(None, 35), text = stopValues[2])
-stop[2].grid(row=1,column=11)
+stop[2].grid(row=3,column=12)
 
-addButton2 = Button(topFrame, text='+', command=lambda: up(2,1), font = (None, 25))
-addButton2.grid(row=5,column=12)
+addButton2 = Button(topFrame, image=buttonImage, command=lambda: up(2,1), font = (None, 25), highlightthickness=0, borderwidth=0)
+addButton2.grid(row=1,column=12)
 
-subButton2 = Button(topFrame, text='-', command=lambda: down(2,1),font = (None, 25))
-subButton2.grid(row=5,column=10)
+subButton2 = Button(topFrame, image=buttonImage, command=lambda: down(2,1),font = (None, 25), highlightthickness=0, borderwidth=0)
+subButton2.grid(row=5,column=12)
 
 stopValues[3] = 0
 stop[3] = TK.Label(topFrame, font=(None, 35), text = stopValues[3])
-stop[3].grid(row=1,column=15)
+stop[3].grid(row=3,column=17)
 
-addButton3 = Button(topFrame, text='+', command=lambda: up(3,1), font = (None, 25))
-addButton3.grid(row=5,column=16)
+addButton3 = Button(topFrame, image=buttonImage, command=lambda: up(3,1), font = (None, 25), highlightthickness=0, borderwidth=0)
+addButton3.grid(row=1,column=17)
 
-subButton3 = Button(topFrame, text='-', command=lambda: down(3,1),font = (None, 25))
-subButton3.grid(row=5,column=14)
+subButton3 = Button(topFrame, image=buttonImage, command=lambda: down(3,1),font = (None, 25), highlightthickness=0, borderwidth=0)
+subButton3.grid(row=5,column=17)
 ################### F/STOP BUTTONS ##########################
 
 
