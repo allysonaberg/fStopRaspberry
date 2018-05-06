@@ -19,7 +19,7 @@ from Tkinter import *
 
 ################### WINDOW SETUP ##########################   
 window = TK.Tk()
-window.geometry("1000x700")
+window.geometry("800x480")
 window.configure(background='black')
 frame1 = Frame(window)
 frame1.grid(row=0,column=0)
@@ -42,7 +42,7 @@ class block:
 		################### FUNCTIONAL BUTTONS ##########################
 		self.buttonImage = TK.PhotoImage(file="button-2.png")
 		self.blankButton = TK.PhotoImage(file="button-blank.png")
-		self.clock = Button(self.topFrame, image=self.buttonImage, font = (None,80), text="000.0", command=self.run, bg = 'black',fg = 'red', compound='center')
+		self.clock = Button(self.topFrame, image=self.buttonImage, font = (None,60), text="000.0", command=self.run, bg = 'black',fg = 'red', compound='center')
 		self.clock.grid(row=1,column=20, columnspan=6, rowspan=6)
 
 
