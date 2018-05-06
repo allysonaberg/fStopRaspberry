@@ -154,8 +154,6 @@ class block:
 		self.run()
 
 	def up(self,val, amt):
-		window.focus()
-
 	    if self.isRunning == False:
 	    	self.stopValues[val] +=amt
 
@@ -164,10 +162,9 @@ class block:
 	    	else:
 	    		self.baseSeconds+=amt
 	    	self.updateTextButton(val)
+	    window.focus()
 
 	def down(self,val, amt):
-		window.focus()
-
 	    if self.stopValues[val] != 0:
 	    	if self.isRunning == False:
 	    		self.stopValues[val] -=amt
@@ -177,16 +174,15 @@ class block:
 	    		else:
 	    			self.baseSeconds-=amt
 	    		self.updateTextButton(val)
+	    window.focus()
 	################### FUNCTIONAL METHODS ##########################   
 
 	################### UPDATE METHODS ##########################   
 	def updatetext(self,event):
-		window.focus()
 	    self.clock['text'] = str(self.baseSeconds) + "." + str(self.baseDeciseconds)
 	    self.topFrame.update_idletasks()  
 
 	def updateTextButton(self,val):
-		window.focus()
 	    # stop[val]['text'] = stopValues[val]
 	    self.clock['text'] = str(self.baseSeconds) + "." + str(self.baseDeciseconds)
 	    self.topFrame.update_idletasks()
