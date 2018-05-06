@@ -6,14 +6,14 @@
 #!/usr/bin/python
 import sys
 #for mac running python3
-import tkinter as TK
-from tkinter import *
-from tkinter import ttk
+# import tkinter as TK
+# from tkinter import *
+# from tkinter import ttk
 
 
 #for the pi running python2
-# import Tkinter as TK
-# from Tkinter import *
+import Tkinter as TK
+from Tkinter import *
 
 
 
