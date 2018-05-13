@@ -21,6 +21,7 @@ from Tkinter import *
 window = TK.Tk()
 window.geometry("800x480")
 window.configure(background='black')
+window.resizable(0,0)
 frame1 = Frame(window)
 frame1.grid(row=0,column=0)
 frame2 = Frame(window)
