@@ -46,13 +46,13 @@ class block:
 		self.clock.grid(row=1,column=20, columnspan=6, rowspan=6)
 
 
-		self.menu1 = Button(self.topFrame, image=self.blankButton, font = (None,30), text='X', bg = 'black',fg = 'red', compound='center', command=self.reset)
+		self.menu1 = Button(self.topFrame, image=self.blankButton, font = (None,30), text='X', bg = 'black',fg = 'red', compound='center', command=self.reset, activebackground='black', activeforeground='red')
 		self.menu1.grid(row=1, column=35)
 
-		self.menu2 = Button(self.topFrame, image=self.blankButton, font = (None,30), text='D', bg = 'black',fg = 'red', compound='center')
+		self.menu2 = Button(self.topFrame, image=self.blankButton, font = (None,30), text='D', bg = 'black',fg = 'red', compound='center', activebackground='black', activeforeground='red')
 		self.menu2.grid(row=3, column=35)
 
-		self.menu3 = Button(self.topFrame, image=self.blankButton, font = (None,30), text='B', bg = 'black',fg = 'red', compound='center')
+		self.menu3 = Button(self.topFrame, image=self.blankButton, font = (None,30), text='B', bg = 'black',fg = 'red', compound='center', activebackground='black', activeforeground='red')
 		self.menu3.grid(row=5, column=35)
 		################### FUNCTIONAL BUTTONS ##########################
 
@@ -65,40 +65,40 @@ class block:
 		self.stop[0] = TK.Label(self.topFrame, font=(None, 35), text = 10, fg = 'red', bg = 'black')
 		self.stop[0].grid(row=3,column=2)
 
-		self.addButton0 = Button(self.topFrame, image=self.upButton, command=lambda:self.up(0,10), highlightthickness=0, borderwidth=0,bg = 'black')
+		self.addButton0 = Button(self.topFrame, image=self.upButton, command=lambda:self.up(0,10), highlightthickness=0, borderwidth=0,bg = 'black', activebackground='black', activeforeground='red')
 		self.addButton0.grid(row=1,column=2)
 
-		self.subButton0 = Button(self.topFrame, image=self.downButton, command=lambda:self.down(0,10),highlightthickness=0, borderwidth=0,bg = 'black')
+		self.subButton0 = Button(self.topFrame, image=self.downButton, command=lambda:self.down(0,10),highlightthickness=0, borderwidth=0,bg = 'black', activebackground='black', activeforeground='red')
 		self.subButton0.grid(row=5,column=2)
 
 		self.stopValues[1] = 0
 		self.stop[1] = TK.Label(self.topFrame, font=(None, 35), text = 5, fg = 'red', bg = 'black')
 		self.stop[1].grid(row=3,column=7) 
 
-		self.addButton1 = Button(self.topFrame, image=self.upButton, command=lambda: self.up(1,5), font = (None, 25), highlightthickness=0, borderwidth=0,bg = 'black')
+		self.addButton1 = Button(self.topFrame, image=self.upButton, command=lambda: self.up(1,5), font = (None, 25), highlightthickness=0, borderwidth=0,bg = 'black', activebackground='black', activeforeground='red')
 		self.addButton1.grid(row=1,column=7)
 
-		self.subButton1 = Button(self.topFrame, image=self.downButton, command=lambda: self.down(1,5), font = (None, 25), highlightthickness=0, borderwidth=0,bg = 'black')
+		self.subButton1 = Button(self.topFrame, image=self.downButton, command=lambda: self.down(1,5), font = (None, 25), highlightthickness=0, borderwidth=0,bg = 'black', activebackground='black', activeforeground='red')
 		self.subButton1.grid(row=5,column=7)
 
 		self.stopValues[2] = 0
 		self.stop[2] = TK.Label(self.topFrame, font=(None, 35), text = 1, fg = 'red', bg = 'black')
 		self.stop[2].grid(row=3,column=12)
 
-		self.addButton2 = Button(self.topFrame, image=self.upButton, command=lambda: self.up(2,1), font = (None, 25), highlightthickness=0, borderwidth=0,bg = 'black')
+		self.addButton2 = Button(self.topFrame, image=self.upButton, command=lambda: self.up(2,1), font = (None, 25), highlightthickness=0, borderwidth=0,bg = 'black', activebackground='black', activeforeground='red')
 		self.addButton2.grid(row=1,column=12)
 
-		self.subButton2 = Button(self.topFrame, image=self.downButton, command=lambda: self.down(2,1),font = (None, 25), highlightthickness=0, borderwidth=0,bg = 'black')
+		self.subButton2 = Button(self.topFrame, image=self.downButton, command=lambda: self.down(2,1),font = (None, 25), highlightthickness=0, borderwidth=0,bg = 'black', activebackground='black', activeforeground='red')
 		self.subButton2.grid(row=5,column=12)
 
 		self.stopValues[3] = 0
 		self.stop[3] = TK.Label(self.topFrame, font=(None, 35), text = .1, fg = 'red', bg = 'black')
 		self.stop[3].grid(row=3,column=17)
 
-		self.addButton3 = Button(self.topFrame, image=self.upButton, command=lambda: self.up(3,1), font = (None, 25), highlightthickness=0, borderwidth=0,bg = 'black')
+		self.addButton3 = Button(self.topFrame, image=self.upButton, command=lambda: self.up(3,1), font = (None, 25), highlightthickness=0, borderwidth=0,bg = 'black', activebackground='black', activeforeground='red')
 		self.addButton3.grid(row=1,column=17)
 
-		self.subButton3 = Button(self.topFrame, image=self.downButton, command=lambda: self.down(3,1),font = (None, 25), highlightthickness=0, borderwidth=0,bg = 'black')
+		self.subButton3 = Button(self.topFrame, image=self.downButton, command=lambda: self.down(3,1),font = (None, 25), highlightthickness=0, borderwidth=0,bg = 'black', activebackground='black', activeforeground='red')
 		self.subButton3.grid(row=5,column=17)
 		################### F/STOP BUTTONS ##########################
 
