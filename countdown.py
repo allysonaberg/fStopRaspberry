@@ -42,7 +42,7 @@ class block:
 		################### FUNCTIONAL BUTTONS ##########################
 		self.buttonImage = TK.PhotoImage(file="button-2.png")
 		self.blankButton = TK.PhotoImage(file="button-blank.png")
-		self.clock = Button(self.topFrame, image=self.buttonImage, font = (None,60), text="000.0", command=self.run, bg = 'black',fg = 'red', compound='center')
+		self.clock = Button(self.topFrame, image=self.buttonImage, font = (None,60), text="000.0", command=self.run, bg = 'black',fg = 'red', compound='center', activebackground='black', activeforeground='red')
 		self.clock.grid(row=1,column=20, columnspan=6, rowspan=6)
 
 
