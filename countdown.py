@@ -49,10 +49,10 @@ class block:
 		self.menu1 = Button(self.topFrame, image=self.blankButton, font = (None,30), text='X', bg = 'black',fg = 'red', compound='center', command=self.reset, activebackground='black', activeforeground='red')
 		self.menu1.grid(row=1, column=35)
 
-		self.menu2 = Button(self.topFrame, image=self.blankButton, font = (None,30), text='D', bg = 'black',fg = 'red', compound='center', activebackground='black', activeforeground='red')
+		self.menu2 = Button(self.topFrame, image=self.blankButton, font = (None,30), text='D', bg = 'black',fg = 'red', compound='center', activebackground='black', activeforeground='red', activebackground='black', activeforeground='red')
 		self.menu2.grid(row=3, column=35)
 
-		self.menu3 = Button(self.topFrame, image=self.blankButton, font = (None,30), text='B', bg = 'black',fg = 'red', compound='center', activebackground='black', activeforeground='red')
+		self.menu3 = Button(self.topFrame, image=self.blankButton, font = (None,30), text='B', bg = 'black',fg = 'red', compound='center', activebackground='black', activeforeground='red', activebackground='black', activeforeground='red')
 		self.menu3.grid(row=5, column=35)
 		################### FUNCTIONAL BUTTONS ##########################
 
