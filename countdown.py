@@ -8,7 +8,6 @@ import sys
 #for mac running python3
 # import tkinter as TK
 # from tkinter import *
-# from tkinter import ttk
 
 
 #for the pi running python2
@@ -22,10 +21,11 @@ window = TK.Tk()
 window.geometry("800x480")
 window.configure(background='black')
 window.resizable(0,0)
+window.wm_attributes('-fullscreen','true')
 frame1 = Frame(window)
 frame1.grid(row=0,column=0)
 frame2 = Frame(window)
-frame2.grid(row=1,column=0)
+frame2.grid(row=10,column=0)
 ################### WINDOW SETUP ##########################   
 
 class block:
