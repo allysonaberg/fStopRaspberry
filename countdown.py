@@ -43,17 +43,17 @@ class block:
 		################### FUNCTIONAL BUTTONS ##########################
 		self.buttonImage = TK.PhotoImage(file="button-2.png")
 		self.blankButton = TK.PhotoImage(file="button-blank.png")
-		self.clock = Button(self.topFrame, image=self.buttonImage, font = (None,45), text="000.0", command=self.run, bg = 'black',fg = 'red', compound='center', activebackground='black', activeforeground='red', highlightthickness=0, borderwidth=0,bg = 'black')
+		self.clock = Button(self.topFrame, image=self.buttonImage, font = (None,45), text="000.0", command=self.run, bg = 'black',fg = 'red', compound='center', activebackground='black', activeforeground='red', highlightthickness=0, borderwidth=0)
 		self.clock.grid(row=1,column=20, columnspan=6, rowspan=6)
 
 
-		self.menu1 = Button(self.topFrame, image=self.blankButton, font = (None,30), text='X', bg = 'black',fg = 'red', compound='center', command=self.reset, activebackground='black', activeforeground='red', highlightthickness=0, borderwidth=0,bg = 'black')
+		self.menu1 = Button(self.topFrame, image=self.blankButton, font = (None,30), text='X', bg = 'black',fg = 'red', compound='center', command=self.reset, activebackground='black', activeforeground='red', highlightthickness=0, borderwidth=0)
 		self.menu1.grid(row=1, column=35)
 
-		self.menu2 = Button(self.topFrame, image=self.blankButton, font = (None,30), text='D', bg = 'black',fg = 'red', compound='center', activebackground='black', activeforeground='red', highlightthickness=0, borderwidth=0,bg = 'black')
+		self.menu2 = Button(self.topFrame, image=self.blankButton, font = (None,30), text='D', bg = 'black',fg = 'red', compound='center', activebackground='black', activeforeground='red', highlightthickness=0, borderwidth=0)
 		self.menu2.grid(row=3, column=35)
 
-		self.menu3 = Button(self.topFrame, image=self.blankButton, font = (None,30), text='B', bg = 'black',fg = 'red', compound='center', activebackground='black', activeforeground='red', highlightthickness=0, borderwidth=0,bg = 'black')
+		self.menu3 = Button(self.topFrame, image=self.blankButton, font = (None,30), text='B', bg = 'black',fg = 'red', compound='center', activebackground='black', activeforeground='red', highlightthickness=0, borderwidth=0)
 		self.menu3.grid(row=5, column=35)
 		################### FUNCTIONAL BUTTONS ##########################
 
