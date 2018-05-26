@@ -23,7 +23,7 @@ window.configure(background='black')
 window.resizable(0,0)
 window.wm_attributes('-fullscreen','true')
 frame1 = Frame(window)
-frame1.grid(row=0,column=0)
+frame1.grid(row=0,column=0, pady=5)
 frame2 = Frame(window)
 frame2.grid(row=10,column=0)
 ################### WINDOW SETUP ##########################   
