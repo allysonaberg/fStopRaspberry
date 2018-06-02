@@ -6,17 +6,17 @@
 #!/usr/bin/python
 import sys
 #for mac running python3
-# import tkinter as TK
-# from tkinter import *
+import tkinter as TK
+from tkinter import *
 
 
 #for the pi running python2
-import Tkinter as TK
-from Tkinter import *
+# import Tkinter as TK
+# from Tkinter import *
 
 
 
-################### WINDOW SETUP ##########################   
+################### WINDOW SETUP ##########################
 window = TK.Tk()
 window.geometry("800x480")
 window.configure(background='black')
@@ -26,9 +26,37 @@ frame1 = Frame(window)
 frame1.grid(row=0,column=0, pady=5)
 frame2 = Frame(window)
 frame2.grid(row=10,column=0)
-################### WINDOW SETUP ##########################   
+menuFrame = Frame(window)
+menuFrame.grid(row=0, column=10, padx=40)
+################### WINDOW SETUP ##########################
 
-class block:
+####################### Side Menu #############################
+class MainMenu:
+	def __init__(self, window, root):
+		self.frame = window
+		self.frame.configure(background='black')
+		self.resetButton = TK.PhotoImage(file="reset-button.png")
+		self.mainMenu = Button(self.frame, image=self.resetButton, command=lambda: self.showMenu(self.frame), bg = 'black',fg = 'red', compound='center', activebackground='black', activeforeground='red', highlightthickness=0, borderwidth=0)
+		self.mainMenu.grid(row=0, column=60)
+
+		self.quitButton = TK.PhotoImage(file="reset-button.png")
+		self.mainMenu = Button(self.frame, image=self.quitButton, command=lambda: self.quit(root), bg = 'black',fg = 'red', compound='center', activebackground='black', activeforeground='red', highlightthickness=0, borderwidth=0)
+		self.mainMenu.grid(row=5, column=100)
+
+	############# MENU FXNS #######################
+	def showMenu(self, frame):
+		self.newWindow = TK.Toplevel(frame)
+		self.newWindow.wm_attributes('-fullscreen','true')
+		self.newWindow.geometry("800x480")
+		self.newWindow.configure(background='black')
+		self.app = Menu(self.newWindow)
+
+	def quit(self, root):
+		root.destroy()
+
+####################### Main Menu #############################
+
+class page1:
 
 	def __init__(self, window):
 		self.topFrame = window
@@ -41,19 +69,20 @@ class block:
 		self.baseSeconds = 0
 		self.baseDeciseconds = 0
 		################### FUNCTIONAL BUTTONS ##########################
-		self.buttonImage = TK.PhotoImage(file="button-2.png")
-		self.blankButton = TK.PhotoImage(file="button-blank.png")
-		self.clock = Button(self.topFrame, image=self.buttonImage, font = (None,45), text="000.0", command=self.run, bg = 'black',fg = 'red', compound='center', activebackground='black', activeforeground='red', highlightthickness=0, borderwidth=0)
-		self.clock.grid(row=1,column=20, columnspan=6, rowspan=6)
+		self.clockImage = TK.PhotoImage(file="clock.png")
+		self.resetButton = TK.PhotoImage(file="reset-button.png")
+		self.dodgeButton = TK.PhotoImage(file="dodge-button.png")
+		self.burnButton = TK.PhotoImage(file="burn-button.png")
+		self.clock = Button(self.topFrame, image=self.clockImage, font = (None,45), text="000.0", command=self.run, bg = 'black',fg = 'red', compound='center', activebackground='black', activeforeground='red', highlightthickness=0, borderwidth=0)
+		self.clock.grid(row=1,column=20, columnspan=6, rowspan=6, padx=5, pady=5)
 
-
-		self.menu1 = Button(self.topFrame, image=self.blankButton, font = (None,30), text='X', bg = 'black',fg = 'red', compound='center', command=self.reset, activebackground='black', activeforeground='red', highlightthickness=0, borderwidth=0)
+		self.menu1 = Button(self.topFrame, image=self.resetButton, bg = 'black',fg = 'red', compound='center', command=self.reset, activebackground='black', activeforeground='red', highlightthickness=0, borderwidth=0)
 		self.menu1.grid(row=1, column=35)
 
-		self.menu2 = Button(self.topFrame, image=self.blankButton, font = (None,30), text='D', bg = 'black',fg = 'red', compound='center', activebackground='black', activeforeground='red', highlightthickness=0, borderwidth=0)
+		self.menu2 = Button(self.topFrame, image=self.dodgeButton, bg = 'black',fg = 'red', compound='center', activebackground='black', activeforeground='red', highlightthickness=0, borderwidth=0)
 		self.menu2.grid(row=3, column=35)
 
-		self.menu3 = Button(self.topFrame, image=self.blankButton, font = (None,30), text='B', bg = 'black',fg = 'red', compound='center', activebackground='black', activeforeground='red', highlightthickness=0, borderwidth=0)
+		self.menu3 = Button(self.topFrame, image=self.burnButton, bg = 'black',fg = 'red', compound='center', activebackground='black', activeforeground='red', highlightthickness=0, borderwidth=0)
 		self.menu3.grid(row=5, column=35)
 		################### FUNCTIONAL BUTTONS ##########################
 
@@ -64,46 +93,46 @@ class block:
 
 		self.stopValues[0] = 0
 		self.stop[0] = TK.Label(self.topFrame, font=(None, 35), text = 10, fg = 'red', bg = 'black')
-		self.stop[0].grid(row=3,column=2)
+		self.stop[0].grid(row=3,column=2, padx=3, pady=3)
 
 		self.addButton0 = Button(self.topFrame, image=self.upButton, command=lambda:self.up(0,10), highlightthickness=0, borderwidth=0,bg = 'black', activebackground='black', activeforeground='red')
-		self.addButton0.grid(row=1,column=2)
+		self.addButton0.grid(row=1,column=2, padx=3, pady=3)
 
 		self.subButton0 = Button(self.topFrame, image=self.downButton, command=lambda:self.down(0,10),highlightthickness=0, borderwidth=0,bg = 'black', activebackground='black', activeforeground='red')
-		self.subButton0.grid(row=5,column=2)
+		self.subButton0.grid(row=5,column=2, padx=3, pady=3)
 
 		self.stopValues[1] = 0
 		self.stop[1] = TK.Label(self.topFrame, font=(None, 35), text = 5, fg = 'red', bg = 'black')
-		self.stop[1].grid(row=3,column=7) 
+		self.stop[1].grid(row=3,column=7)
 
 		self.addButton1 = Button(self.topFrame, image=self.upButton, command=lambda: self.up(1,5), font = (None, 25), highlightthickness=0, borderwidth=0,bg = 'black', activebackground='black', activeforeground='red')
-		self.addButton1.grid(row=1,column=7)
+		self.addButton1.grid(row=1,column=7, padx=3, pady=3)
 
 		self.subButton1 = Button(self.topFrame, image=self.downButton, command=lambda: self.down(1,5), font = (None, 25), highlightthickness=0, borderwidth=0,bg = 'black', activebackground='black', activeforeground='red')
-		self.subButton1.grid(row=5,column=7)
+		self.subButton1.grid(row=5,column=7, padx=3, pady=3)
 
 		self.stopValues[2] = 0
 		self.stop[2] = TK.Label(self.topFrame, font=(None, 35), text = 1, fg = 'red', bg = 'black')
-		self.stop[2].grid(row=3,column=12)
+		self.stop[2].grid(row=3,column=12, padx=3, pady=3)
 
 		self.addButton2 = Button(self.topFrame, image=self.upButton, command=lambda: self.up(2,1), font = (None, 25), highlightthickness=0, borderwidth=0,bg = 'black', activebackground='black', activeforeground='red')
-		self.addButton2.grid(row=1,column=12)
+		self.addButton2.grid(row=1,column=12, padx=3, pady=3)
 
 		self.subButton2 = Button(self.topFrame, image=self.downButton, command=lambda: self.down(2,1),font = (None, 25), highlightthickness=0, borderwidth=0,bg = 'black', activebackground='black', activeforeground='red')
-		self.subButton2.grid(row=5,column=12)
+		self.subButton2.grid(row=5,column=12, padx=3, pady=3)
 
 		self.stopValues[3] = 0
 		self.stop[3] = TK.Label(self.topFrame, font=(None, 35), text = .1, fg = 'red', bg = 'black')
 		self.stop[3].grid(row=3,column=17)
 
 		self.addButton3 = Button(self.topFrame, image=self.upButton, command=lambda: self.up(3,1), font = (None, 25), highlightthickness=0, borderwidth=0,bg = 'black', activebackground='black', activeforeground='red')
-		self.addButton3.grid(row=1,column=17)
+		self.addButton3.grid(row=1,column=17, padx=3, pady=3)
 
 		self.subButton3 = Button(self.topFrame, image=self.downButton, command=lambda: self.down(3,1),font = (None, 25), highlightthickness=0, borderwidth=0,bg = 'black', activebackground='black', activeforeground='red')
-		self.subButton3.grid(row=5,column=17)
+		self.subButton3.grid(row=5,column=17, padx=3, pady=3)
 		################### F/STOP BUTTONS ##########################
 
-	################### FUNCTIONAL METHODS ##########################   
+	################### FUNCTIONAL METHODS ##########################
 	def countdown(self, sec, deci):
 		window.focus()
 		if self.isRunning and self.reset_it == False:
@@ -130,7 +159,7 @@ class block:
 			self.reset_it = False
 
 		#OTHER RUNNING OPERATIONS
-		else:	
+		else:
 			#PAUSED
 			if self.isRunning:
 				self.isRunning = False
@@ -176,22 +205,20 @@ class block:
 	    			self.baseSeconds-=amt
 	    		self.updateTextButton(val)
 	    window.focus()
-	################### FUNCTIONAL METHODS ##########################   
+	################### FUNCTIONAL METHODS ##########################
 
-	################### UPDATE METHODS ##########################   
+	################### UPDATE METHODS ##########################
 	def updatetext(self,event):
 	    self.clock['text'] = str(self.baseSeconds) + "." + str(self.baseDeciseconds)
-	    self.topFrame.update_idletasks()  
+	    self.topFrame.update_idletasks()
 
 	def updateTextButton(self,val):
 	    # stop[val]['text'] = stopValues[val]
 	    self.clock['text'] = str(self.baseSeconds) + "." + str(self.baseDeciseconds)
 	    self.topFrame.update_idletasks()
-	################### UPDATE METHODS ##########################   
+	################### UPDATE METHODS ##########################
 
-block(frame1)
-block(frame2)
+MainMenu(menuFrame, window)
+page1(frame1)
+page1(frame2)
 window.mainloop()
-
-
-
