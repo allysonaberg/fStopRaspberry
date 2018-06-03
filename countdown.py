@@ -78,12 +78,29 @@ class PageOne(tk.Frame):
         frame1.grid(row=0, column=0, sticky = "nsew")
         frame2.grid(row=1, column=0, sticky = "nsew")
 
+        sideMenuFrame = SideMenu(container, self)
+        sideMenuFrame.grid(row=0, column=1, sticky="nsew")
+
+
+class SideMenu(tk.Frame):
+
+    def __init__(self, parent, controller):
+        tk.Frame.__init__(self, parent)
+        self.frame = self
+        self.frame.configure(background="black")
+
+        self.menu = tk.PhotoImage(file="burn-button.png")
+
+        self.menuButton = Button(self.frame, image=self.menu, bg = 'black',fg = 'red', compound='center', activebackground='black', activeforeground='red', highlightthickness=0, borderwidth=0)
+        self.menuButton.grid(row=1, column=2)
+
 #TODO: move this all to another file maybe? This file should only deal with general structure
 class PageOneBlock(tk.Frame):
 
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
         self.topFrame = self
+        self.topFrame.configure(background="black")
         self.isRunning = False
         self.reset_it = False
         self.stopValues = {}

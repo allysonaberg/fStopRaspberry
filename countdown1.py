@@ -60,7 +60,7 @@ class page1:
 
 	def __init__(self, window):
 		self.topFrame = window
-		self.root_color = "black"
+		self.root_color = "red"
 		self.topFrame.configure(background=self.root_color)
 		self.isRunning = False
 		self.reset_it = False
