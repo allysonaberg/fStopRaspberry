@@ -9,7 +9,7 @@ import Tkinter as tk
 from Tkinter import *
 
 LARGE_FONT= ("Verdana", 12)
-LARGER_FONT = ("Verdana", 30)
+LARGER_FONT = ("Verdana", 25)
 
 class MainApplication(tk.Tk): #main class inheriting everything from tk.TK
     def __init__(self, *args, **kwargs):
@@ -55,25 +55,28 @@ class StartPage(tk.Frame):
 
     def __init__(self, parent, controller):
         tk.Frame.__init__(self,parent)
-        controller.configure(background='black')
+        container = tk.Frame(self)
+        container.configure(background='black')
+        self.configure(background="black")
 
         label = tk.Label(self, text="Start Page", font=LARGER_FONT)
         label.grid(row=0, column=0, padx=300, pady=100)
 
-        button = tk.Button(self, text="F-Stop timer", command=lambda: controller.show_frame(PageOne), font=LARGER_FONT)
-        button.grid(row=1, column=0)
+        button = tk.Button(self, text="F-Stop timer", command=lambda: controller.show_frame(PageOne), font=LARGER_FONT, fg='red', bg='black', compound='center', activebackground='black', activeforeground='red',  highlightthickness=0, borderwidth=0)
+        button.grid(row=1, column=0, pady = 20)
 
-        button2 = tk.Button(self, text="Visit Page 2", command=lambda: controller.show_frame(PageTwo), font=LARGER_FONT)
-        button2.grid(row=2, column=0)
+        button2 = tk.Button(self, text="Page 2", command=lambda: controller.show_frame(PageTwo), font=LARGER_FONT, fg='red', bg='black', compound='center', activebackground='black', activeforeground='red',  highlightthickness=0, borderwidth=0)
+        button2.grid(row=2, column=0, pady = 20)
 
-        quitButton = tk.Button(self, text="quit", command=lambda: controller.quit(), font=LARGER_FONT)
-        quitButton.grid(row=3, column=0)
+        quitButton = tk.Button(self, text="quit", command=lambda: controller.quit(), font=LARGER_FONT, fg='red', bg='black', compound='center', activebackground='black', activeforeground='red',  highlightthickness=0, borderwidth=0)
+        quitButton.grid(row=3, column=0, pady = 20)
 
 
 class PageOne(tk.Frame):
 
     def __init__(self, parent, controller):
         self.controller = controller
+        controller.configure(background='black')
         tk.Frame.__init__(self, parent)
         container = tk.Frame(self)
         container.pack(side="top", fill="both", expand=True)
