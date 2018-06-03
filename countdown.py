@@ -1,12 +1,12 @@
 import sys
 #for mac running python3
-# import tkinter as tk
-# from tkinter import *
+import tkinter as tk
+from tkinter import *
 
 
 #for the pi running python2
-import Tkinter as tk
-from Tkinter import *
+# import Tkinter as tk
+# from Tkinter import *
 
 LARGE_FONT= ("Verdana", 12)
 LARGER_FONT = ("Verdana", 25)
@@ -59,17 +59,14 @@ class StartPage(tk.Frame):
         container.configure(background='black')
         self.configure(background="black")
 
-        label = tk.Label(self, text="Start Page", font=LARGER_FONT)
-        label.grid(row=0, column=0, padx=300, pady=100)
-
         button = tk.Button(self, text="F-Stop timer", command=lambda: controller.show_frame(PageOne), font=LARGER_FONT, fg='red', bg='black', compound='center', activebackground='black', activeforeground='red',  highlightthickness=0, borderwidth=0)
-        button.grid(row=1, column=0, pady = 20)
+        button.grid(row=1, column=0, pady = 40)
 
-        button2 = tk.Button(self, text="Page 2", command=lambda: controller.show_frame(PageTwo), font=LARGER_FONT, fg='red', bg='black', compound='center', activebackground='black', activeforeground='red',  highlightthickness=0, borderwidth=0)
-        button2.grid(row=2, column=0, pady = 20)
+        # button2 = tk.Button(self, text="Page 2", command=lambda: controller.show_frame(PageTwo), font=LARGER_FONT, fg='red', bg='black', compound='center', activebackground='black', activeforeground='red',  highlightthickness=0, borderwidth=0)
+        # button2.grid(row=2, column=0, pady = 20)
 
         quitButton = tk.Button(self, text="quit", command=lambda: controller.quit(), font=LARGER_FONT, fg='red', bg='black', compound='center', activebackground='black', activeforeground='red',  highlightthickness=0, borderwidth=0)
-        quitButton.grid(row=3, column=0, pady = 20)
+        quitButton.grid(row=3, column=0)
 
 
 class PageOne(tk.Frame):
