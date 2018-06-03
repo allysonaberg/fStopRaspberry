@@ -1,12 +1,12 @@
 import sys
 #for mac running python3
-import tkinter as tk
-from tkinter import *
+# import tkinter as tk
+# from tkinter import *
 
 
 #for the pi running python2
-# import Tkinter as tk
-# from Tkinter import *
+import Tkinter as tk
+from Tkinter import *
 
 LARGE_FONT= ("Verdana", 12)
 LARGER_FONT = ("Verdana", 25)
