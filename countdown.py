@@ -9,6 +9,7 @@ import Tkinter as tk
 from Tkinter import *
 
 LARGE_FONT= ("Verdana", 12)
+LARGER_FONT = ("Verdana", 30)
 
 class MainApplication(tk.Tk): #main class inheriting everything from tk.TK
     def __init__(self, *args, **kwargs):
@@ -56,16 +57,16 @@ class StartPage(tk.Frame):
         tk.Frame.__init__(self,parent)
         controller.configure(background='black')
 
-        label = tk.Label(self, text="Start Page", font=LARGE_FONT)
-        label.grid(row=0, column=0)
+        label = tk.Label(self, text="Start Page", font=LARGER_FONT)
+        label.grid(row=0, column=0, padx=300, pady=100)
 
-        button = tk.Button(self, text="F-Stop timer", command=lambda: controller.show_frame(PageOne))
+        button = tk.Button(self, text="F-Stop timer", command=lambda: controller.show_frame(PageOne), font=LARGER_FONT)
         button.grid(row=1, column=0)
 
-        button2 = tk.Button(self, text="Visit Page 2", command=lambda: controller.show_frame(PageTwo))
+        button2 = tk.Button(self, text="Visit Page 2", command=lambda: controller.show_frame(PageTwo), font=LARGER_FONT)
         button2.grid(row=2, column=0)
 
-        quitButton = tk.Button(self, text="quit", command=lambda: controller.quit())
+        quitButton = tk.Button(self, text="quit", command=lambda: controller.quit(), font=LARGER_FONT)
         quitButton.grid(row=3, column=0)
 
 
