@@ -9,7 +9,7 @@ import Tkinter as tk
 from Tkinter import *
 
 LARGE_FONT= ("Verdana", 12)
-LARGER_FONT = ("Verdana", 25)
+LARGER_FONT = ("Verdana", 20)
 
 class MainApplication(tk.Tk): #main class inheriting everything from tk.TK
     def __init__(self, *args, **kwargs):
