@@ -36,11 +36,14 @@ class MainApplication(tk.Tk): #main class inheriting everything from tk.TK
 
         self.frames[StartPage] = frame
         self.frames[PageOne] = frame1
-        self.frames[PageTwo] = frame2
+        # self.frames[PageTwo] = frame2
 
         frame.grid(row=0, column=0, sticky = "nsew")
         frame1.grid(row=0, column=0, sticky = "nsew")
         frame2.grid(row=0, column=0, sticky = "nsew")
+
+        frame.configure(background="black")
+        frame1.configure(background="black")
 
         self.show_frame(StartPage)
 
