@@ -7,6 +7,7 @@ import sys
 #for the pi running python2
 import Tkinter as tk
 from Tkinter import *
+
 LARGE_FONT= ("Verdana", 12)
 
 class MainApplication(tk.Tk): #main class inheriting everything from tk.TK
@@ -78,7 +79,7 @@ class PageOne(tk.Frame):
         container.grid_rowconfigure(0, weight=1)
         container.grid_columnconfigure(0, weight=1)
         container.grid(row=0, column=0)
-        container.configure(background='red')
+        container.configure(background='black')
 
         frame1 = PageOneBlock(container, self)
         frame2 = PageOneBlock(container, self)
@@ -101,7 +102,7 @@ class SideMenu(tk.Frame):
         self.menu = tk.PhotoImage(file="burn-button.png")
 
         self.menuButton = Button(self.frame, image=self.menu, bg = 'black',fg = 'red', compound='center', activebackground='black', activeforeground='red', highlightthickness=0, borderwidth=0, command=lambda: controller.show_frame(StartPage))
-        self.menuButton.grid(row=1, column=2)
+        self.menuButton.grid(row=1, column=2, padx=20, pady=3)
 
 #TODO: move this all to another file maybe? This file should only deal with general structure
 class PageOneBlock(tk.Frame):
