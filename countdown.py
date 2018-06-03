@@ -46,6 +46,9 @@ class MainApplication(tk.Tk): #main class inheriting everything from tk.TK
         frame = self.frames[controller]
         frame.tkraise()
 
+    def quit(self):
+        self.destroy()
+
 class StartPage(tk.Frame):
 
     def __init__(self, parent, controller):
@@ -61,10 +64,14 @@ class StartPage(tk.Frame):
         button2 = tk.Button(self, text="Visit Page 2", command=lambda: controller.show_frame(PageTwo))
         button2.grid(row=2, column=0)
 
+        quitButton = tk.Button(self, text="quit", command=lambda: controller.quit())
+        quitButton.grid(row=3, column=0)
+
 
 class PageOne(tk.Frame):
 
     def __init__(self, parent, controller):
+        self.controller = controller
         tk.Frame.__init__(self, parent)
         container = tk.Frame(self)
         container.pack(side="top", fill="both", expand=True)
@@ -81,6 +88,8 @@ class PageOne(tk.Frame):
         sideMenuFrame = SideMenu(container, self)
         sideMenuFrame.grid(row=0, column=1, sticky="nsew")
 
+    def show_frame(self, frame):
+        self.controller.show_frame(frame)
 
 class SideMenu(tk.Frame):
 
@@ -91,7 +100,7 @@ class SideMenu(tk.Frame):
 
         self.menu = tk.PhotoImage(file="burn-button.png")
 
-        self.menuButton = Button(self.frame, image=self.menu, bg = 'black',fg = 'red', compound='center', activebackground='black', activeforeground='red', highlightthickness=0, borderwidth=0)
+        self.menuButton = Button(self.frame, image=self.menu, bg = 'black',fg = 'red', compound='center', activebackground='black', activeforeground='red', highlightthickness=0, borderwidth=0, command=lambda: controller.show_frame(StartPage))
         self.menuButton.grid(row=1, column=2)
 
 #TODO: move this all to another file maybe? This file should only deal with general structure
