@@ -106,7 +106,7 @@ class SideMenu(tk.Frame):
         self.menu = tk.PhotoImage(file="burn-button.png")
 
         self.menuButton = Button(self.frame, image=self.menu, bg = 'black',fg = 'red', compound='center', activebackground='black', activeforeground='red', highlightthickness=0, borderwidth=0, command=lambda: controller.show_frame(StartPage))
-        self.menuButton.grid(row=1, column=2, padx=20, pady=3)
+        self.menuButton.grid(row=1, column=2, padx=20, pady=2)
 
 #TODO: move this all to another file maybe? This file should only deal with general structure
 class PageOneBlock(tk.Frame):
@@ -145,43 +145,43 @@ class PageOneBlock(tk.Frame):
 
         self.stopValues[0] = 0
         self.stop[0] = tk.Label(self.topFrame, font=(None, 35), text = 10, fg = 'red', bg = 'black')
-        self.stop[0].grid(row=3,column=2, padx=3, pady=3)
+        self.stop[0].grid(row=3,column=2, padx=3, pady=2)
 
         self.addButton0 = Button(self.topFrame, image=self.upButton, command=lambda:self.up(0,10), highlightthickness=0, borderwidth=0,bg = 'black', activebackground='black', activeforeground='red')
-        self.addButton0.grid(row=1,column=2, padx=3, pady=3)
+        self.addButton0.grid(row=1,column=2, padx=3, pady=2)
 
         self.subButton0 = Button(self.topFrame, image=self.downButton, command=lambda:self.down(0,10),highlightthickness=0, borderwidth=0,bg = 'black', activebackground='black', activeforeground='red')
-        self.subButton0.grid(row=5,column=2, padx=3, pady=3)
+        self.subButton0.grid(row=5,column=2, padx=3, pady=2)
 
         self.stopValues[1] = 0
         self.stop[1] = tk.Label(self.topFrame, font=(None, 35), text = 5, fg = 'red', bg = 'black')
         self.stop[1].grid(row=3,column=7)
 
         self.addButton1 = Button(self.topFrame, image=self.upButton, command=lambda: self.up(1,5), font = (None, 25), highlightthickness=0, borderwidth=0,bg = 'black', activebackground='black', activeforeground='red')
-        self.addButton1.grid(row=1,column=7, padx=3, pady=3)
+        self.addButton1.grid(row=1,column=7, padx=3, pady=2)
 
         self.subButton1 = Button(self.topFrame, image=self.downButton, command=lambda: self.down(1,5), font = (None, 25), highlightthickness=0, borderwidth=0,bg = 'black', activebackground='black', activeforeground='red')
-        self.subButton1.grid(row=5,column=7, padx=3, pady=3)
+        self.subButton1.grid(row=5,column=7, padx=3, pady=2)
 
         self.stopValues[2] = 0
         self.stop[2] = tk.Label(self.topFrame, font=(None, 35), text = 1, fg = 'red', bg = 'black')
-        self.stop[2].grid(row=3,column=12, padx=3, pady=3)
+        self.stop[2].grid(row=3,column=12, padx=3, pady=2)
 
         self.addButton2 = Button(self.topFrame, image=self.upButton, command=lambda: self.up(2,1), font = (None, 25), highlightthickness=0, borderwidth=0,bg = 'black', activebackground='black', activeforeground='red')
-        self.addButton2.grid(row=1,column=12, padx=3, pady=3)
+        self.addButton2.grid(row=1,column=12, padx=3, pady=2)
 
         self.subButton2 = Button(self.topFrame, image=self.downButton, command=lambda: self.down(2,1),font = (None, 25), highlightthickness=0, borderwidth=0,bg = 'black', activebackground='black', activeforeground='red')
-        self.subButton2.grid(row=5,column=12, padx=3, pady=3)
+        self.subButton2.grid(row=5,column=12, padx=3, pady=2)
 
         self.stopValues[3] = 0
         self.stop[3] = tk.Label(self.topFrame, font=(None, 35), text = .1, fg = 'red', bg = 'black')
         self.stop[3].grid(row=3,column=17)
 
         self.addButton3 = Button(self.topFrame, image=self.upButton, command=lambda: self.up(3,1), font = (None, 25), highlightthickness=0, borderwidth=0,bg = 'black', activebackground='black', activeforeground='red')
-        self.addButton3.grid(row=1,column=17, padx=3, pady=3)
+        self.addButton3.grid(row=1,column=17, padx=3, pady=2)
 
         self.subButton3 = Button(self.topFrame, image=self.downButton, command=lambda: self.down(3,1),font = (None, 25), highlightthickness=0, borderwidth=0,bg = 'black', activebackground='black', activeforeground='red')
-        self.subButton3.grid(row=5,column=17, padx=3, pady=3)
+        self.subButton3.grid(row=5,column=17, padx=3, pady=2)
         ################### F/STOP BUTTONS ##########################
 
     ################### FUNCTIONAL METHODS ##########################
