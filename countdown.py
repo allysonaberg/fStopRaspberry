@@ -1,4 +1,5 @@
 import sys
+import time
 #for mac running python3
 # import tkinter as tk
 # from tkinter import *
@@ -7,6 +8,7 @@ import sys
 #for the pi running python2
 import Tkinter as tk
 from Tkinter import *
+import RPi.GPIO as GPIO
 
 LARGE_FONT= ("Verdana", 12)
 LARGER_FONT = ("Verdana", 20)
@@ -198,6 +200,12 @@ class PageOneBlock(tk.Frame):
         		print('done')
         		self.clock['text'] = '0.0'
         		self.isRunning = False
+                GPIO.setmode(GPIO.BCM)
+                GPIO.setwarnings(False)
+                GPIO.setup(26, GPIO.OUT)
+                GPIO.output(26, GPIO.HIGH)
+                time.sleep(1)
+                GPIO.output(26, GPIO.LOW)
 
     def run(self):
         self.focus()
