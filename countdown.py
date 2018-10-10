@@ -188,6 +188,9 @@ class PageOneBlock(tk.Frame):
 
     ################### FUNCTIONAL METHODS ##########################
     def countdown(self, sec, deci):
+        GPIO.setmode(GPIO.BCM)
+        GPIO.setwarnings(False)
+        GPIO.setup(26, GPIO.OUT)
         self.focus()
         if self.isRunning and self.reset_it == False:
         	self.clock['text'] = str(sec) + "." + str(deci)
@@ -197,15 +200,9 @@ class PageOneBlock(tk.Frame):
         	elif sec > 0 and deci == 0:
         		self.topFrame.after(100, self.countdown, sec - 1, 9)
         	else:
-        		print('done')
-        		self.clock['text'] = '0.0'
-        		self.isRunning = False
-                GPIO.setmode(GPIO.BCM)
-                GPIO.setwarnings(False)
-                GPIO.setup(26, GPIO.OUT)
-                GPIO.output(26, GPIO.HIGH)
-                time.sleep(1)
-                GPIO.output(26, GPIO.LOW)
+                    self.handleDone()
+                    self.clock['text']='0.0'
+                    
 
     def run(self):
         self.focus()
@@ -275,6 +272,12 @@ class PageOneBlock(tk.Frame):
         # stop[val]['text'] = stopValues[val]
         self.clock['text'] = str(self.baseSeconds) + "." + str(self.baseDeciseconds)
         self.topFrame.update_idletasks()
+        
+    def handleDone(self):
+        self.isRunning = False
+        GPIO.output(26, GPIO.LOW)
+        time.sleep(1)
+        GPIO.output(26, GPIO.HIGH)
 	################### UPDATE METHODS ##########################
 
 
