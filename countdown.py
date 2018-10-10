@@ -198,9 +198,9 @@ class PageOneBlock(tk.Frame):
         	self.clock['text'] = str(sec) + "." + str(deci)
 
         	if deci > 0:
-        		self.topFrame.after(100, self.countdown, sec, deci - 1, false)
+        		self.topFrame.after(100, self.countdown, sec, deci - 1, False)
         	elif sec > 0 and deci == 0:
-        		self.topFrame.after(100, self.countdown, sec - 1, 9, false)
+        		self.topFrame.after(100, self.countdown, sec - 1, 9, False)
         	else:
                     self.handleDone()
                     self.clock['text']='0.0'
@@ -230,7 +230,7 @@ class PageOneBlock(tk.Frame):
         		#TODO: MAKE THIS PARSE SMARTER
         		self.sec = int(self.count.split('.')[0])
         		self.deci = int(self.count.split('.')[1])
-        		self.countdown(self.sec, self.deci, true)
+        		self.countdown(self.sec, self.deci, True)
 
     def reset(self):
         self.focus()
