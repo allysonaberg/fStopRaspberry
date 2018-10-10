@@ -187,18 +187,20 @@ class PageOneBlock(tk.Frame):
         ################### F/STOP BUTTONS ##########################
 
     ################### FUNCTIONAL METHODS ##########################
-    def countdown(self, sec, deci):
+    def countdown(self, sec, deci, firstTime):
         GPIO.setmode(GPIO.BCM)
         GPIO.setwarnings(False)
         GPIO.setup(26, GPIO.OUT)
         self.focus()
+        if firstTime:
+            GPIO.output(26, GPIO.LOW)
         if self.isRunning and self.reset_it == False:
         	self.clock['text'] = str(sec) + "." + str(deci)
 
         	if deci > 0:
-        		self.topFrame.after(100, self.countdown, sec, deci - 1)
+        		self.topFrame.after(100, self.countdown, sec, deci - 1, false)
         	elif sec > 0 and deci == 0:
-        		self.topFrame.after(100, self.countdown, sec - 1, 9)
+        		self.topFrame.after(100, self.countdown, sec - 1, 9, false)
         	else:
                     self.handleDone()
                     self.clock['text']='0.0'
@@ -228,7 +230,7 @@ class PageOneBlock(tk.Frame):
         		#TODO: MAKE THIS PARSE SMARTER
         		self.sec = int(self.count.split('.')[0])
         		self.deci = int(self.count.split('.')[1])
-        		self.countdown(self.sec, self.deci)
+        		self.countdown(self.sec, self.deci, true)
 
     def reset(self):
         self.focus()
@@ -275,8 +277,6 @@ class PageOneBlock(tk.Frame):
         
     def handleDone(self):
         self.isRunning = False
-        GPIO.output(26, GPIO.LOW)
-        time.sleep(1)
         GPIO.output(26, GPIO.HIGH)
 	################### UPDATE METHODS ##########################
 
