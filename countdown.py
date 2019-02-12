@@ -1,209 +1,304 @@
-#TODO:
-#get proper stop numbers in
-#keyboard (numbers)
-
-#!/usr/bin/python
 import sys
+import time
 #for mac running python3
-# import tkinter as TK
+# import tkinter as tk
 # from tkinter import *
 
-#for the pi running python3
-import Tkinter as TK
+
+#for the pi running python2
+import Tkinter as tk
 from Tkinter import *
+import RPi.GPIO as GPIO
 
-global isRunning
-global reset_it
-global stopValues
-stopValues = {}
-global stop
-stop = {}
+LARGE_FONT= ("Verdana", 12)
+LARGER_FONT = ("Verdana", 20)
 
-isRunning = False
-reset_it = False
+class MainApplication(tk.Tk): #main class inheriting everything from tk.TK
+    def __init__(self, *args, **kwargs):
+        tk.Tk.__init__(self, *args, **kwargs) #initializing the inherited class
 
+        self.geometry("800x480")
+        self.configure(background='black')
+        self.resizable(0,0)
+        self.wm_attributes('-fullscreen','true')
 
-################### WINDOW SETUP ##########################   
-window = TK.Tk()
-window.title('countdown timer')
-# window.attributes("-fullscreen", True)
-window.geometry("800x450")
+        #defining the container that will hold all our frames:
+        container = tk.Frame(self)
+        container.pack(side="top", fill="both", expand=True)
+        container.grid_rowconfigure(0, weight=1)
+        container.grid_columnconfigure(0, weight=1)
+        container.grid(row=0, column=0)
+        container.configure(background='black')
 
-mainFrame = Frame(window)
-mainFrame.pack()
+        self.frames = {}
 
-topFrame = Frame(window)
-topFrame.pack()
+        frame = StartPage(container, self)
+        frame1 = PageOne(container, self)
+        frame2 = PageTwo(container, self)
 
-bottomFrame = Frame(window)
-bottomFrame.pack()
-################### WINDOW SETUP ##########################   
+        self.frames[StartPage] = frame
+        self.frames[PageOne] = frame1
+        # self.frames[PageTwo] = frame2
 
-################### FUNCTIONAL METHODS ##########################   
-def countdown(sec, deci):
-	global isRunning
-	global reset_it
-	
-	if isRunning and reset_it == False:
-		baseSeconds['state'] = 'disabled'
-		baseDeciseconds['state'] = 'disabled'
+        frame.grid(row=0, column=0, sticky = "nsew")
+        frame1.grid(row=0, column=0, sticky = "nsew")
+        frame2.grid(row=0, column=0, sticky = "nsew")
 
-		clock['text'] = str(sec) + "." + str(deci)
+        frame.configure(background="black")
+        frame1.configure(background="black")
 
-		if deci > 0:
-			window.after(100, countdown, sec, deci - 1)
-		elif sec > 0 and deci == 0:
-			window.after(100, countdown, sec - 1, 9)
-		else:
-			baseSeconds['state'] = 'normal'
-			baseDeciseconds['state'] = 'normal'
-			print('done')
-			clock['text'] = '0.0'
-			done['text'] = 'START'
-			isRunning = False
+        self.show_frame(StartPage)
 
-def run():
-	global isRunning
-	global reset_it
+    def show_frame(self, controller):
+        frame = self.frames[controller]
+        frame.tkraise()
 
-	#RESET CASE
-	if reset_it:
-		baseSeconds['state'] = 'normal'
-		baseDeciseconds['state'] = 'normal'
-		count = IntVar()
-		count= str(baseSeconds.get()) + '.' + str(baseDeciseconds.get())
-		clock['text'] = count
-		isRunning = False
-		done['text'] = 'START'
-		reset_it = False
+    def quit(self):
+        self.destroy()
 
-	#OTHER RUNNING OPERATIONS
-	else:	
-		#PAUSED
-		if isRunning:
-			baseSeconds['state'] = 'normal'
-			baseDeciseconds['state'] = 'normal'
-			done['text'] = 'CONTINUE'
-			#stop timer
-			isRunning = False
+class StartPage(tk.Frame):
 
-		#START/CONTINUE
-		else:
-			if done['text'] == 'CONTINUE':
-				count = str(clock['text'])
-			else:
-				count = str(clock['text'])
+    def __init__(self, parent, controller):
+        tk.Frame.__init__(self,parent)
+        container = tk.Frame(self)
+        container.configure(background='black')
+        self.configure(background="black")
 
-			done['text'] = 'STOP'
-			isRunning = True
-			#TODO: MAKE THIS PARSE SMARTER
-			sec = int(count.split('.')[0])
-			deci = int(count.split('.')[1])
-			print(deci)
-			countdown(sec, deci)
+        button = tk.Button(self, text="F-Stop timer", command=lambda: controller.show_frame(PageOne), font=LARGER_FONT, fg='red', bg='black', compound='center', activebackground='black', activeforeground='red',  highlightthickness=0, borderwidth=0)
+        button.grid(row=1, column=0, padx=300, pady = 40)
 
-def reset():
-	global reset_it
-	global stopValues
+        # button2 = tk.Button(self, text="Page 2", command=lambda: controller.show_frame(PageTwo), font=LARGER_FONT, fg='red', bg='black', compound='center', activebackground='black', activeforeground='red',  highlightthickness=0, borderwidth=0)
+        # button2.grid(row=2, column=0, pady = 20)
 
-	for key in stopValues:
-		stopValues[key] = 0
-		updateTextButton(key)
-
-	reset_it = True
-	run()
-
-def up(val):
-    global stopValues
-    global isRunning
-
-    if isRunning == False:
-    	stopValues[val] +=1
-    	updateTextButton(val)
-
-def down(val):
-    global stopValues
-    global isRunning
-
-    if isRunning == False:
-    	if int(stopValues[val]) > 0:
-    		stopValues[val] -=1
-    		updateTextButton(val)
-################### FUNCTIONAL METHODS ##########################   
-
-################### UPDATE METHODS ##########################   
-def updatetext(event):
-    clock['text'] = float(baseSeconds.get()) + float( "." + str(baseDeciseconds.get())) + int(sum(stopValues.values()))
-    window.update_idletasks()  
-
-def updateTextButton(val):
-    stop[val]['text'] = stopValues[val]
-    clock['text'] = float(baseSeconds.get()) + float("." +baseDeciseconds.get()) + int(sum(stopValues.values()))
-    window.update_idletasks()
-################### UPDATE METHODS ##########################   
+        quitButton = tk.Button(self, text="quit", command=lambda: controller.quit(), font=LARGER_FONT, fg='red', bg='black', compound='center', activebackground='black', activeforeground='red',  highlightthickness=0, borderwidth=0)
+        quitButton.grid(row=3, column=0)
 
 
-################### FUNCTIONAL BUTTONS ##########################
-baseSeconds = Entry(mainFrame)
-baseSeconds.grid(row=0,column=7)
-baseSeconds.focus_set()
-baseSeconds.config(width=2, font = (None, 55))
-baseSeconds.bind(sequence='<KeyRelease>', func=updatetext)
-baseSeconds.insert(0, '0')
+class PageOne(tk.Frame):
 
-baseDeciseconds = Entry(mainFrame)
-baseDeciseconds.grid(row=0,column=10)
-baseDeciseconds.focus_set()
-baseDeciseconds.config(width=1, font = (None, 55))
-baseDeciseconds.bind(sequence='<KeyRelease>', func=updatetext)
-baseDeciseconds.insert(0, '0')
+    def __init__(self, parent, controller):
+        self.controller = controller
+        controller.configure(background='black')
+        tk.Frame.__init__(self, parent)
+        container = tk.Frame(self)
+        container.pack(side="top", fill="both", expand=True)
+        container.grid_rowconfigure(0, weight=1)
+        container.grid_columnconfigure(0, weight=1)
+        container.grid(row=0, column=0)
+        container.configure(background='black')
 
-print(baseDeciseconds.get())
-clock = TK.Label(bottomFrame, font = (None,100), text=baseSeconds.get() + baseDeciseconds.get())
-clock.pack()
+        frame1 = PageOneBlock(container, self)
+        frame2 = PageOneBlock(container, self)
+        frame1.grid(row=0, column=0, sticky = "nsew")
+        frame2.grid(row=1, column=0, sticky = "nsew")
 
-done = Button(bottomFrame, text='START', command=run, font = (None, 35))
-done.pack()
+        sideMenuFrame = SideMenu(container, self)
+        sideMenuFrame.grid(row=0, column=1, sticky="nsew")
 
-reset = Button(bottomFrame, text='RESET', command=reset, font = (None, 35))
-reset.pack()
-################### FUNCTIONAL BUTTONS ##########################
+    def show_frame(self, frame):
+        self.controller.show_frame(frame)
+
+class SideMenu(tk.Frame):
+
+    def __init__(self, parent, controller):
+        tk.Frame.__init__(self, parent)
+        self.frame = self
+        self.frame.configure(background="black")
+
+        self.menu = tk.PhotoImage(file="burn-button.png")
+
+        self.menuButton = Button(self.frame, image=self.menu, bg = 'black',fg = 'red', compound='center', activebackground='black', activeforeground='red', highlightthickness=0, borderwidth=0, command=lambda: controller.show_frame(StartPage))
+        self.menuButton.grid(row=1, column=2, padx=20, pady=2)
+
+#TODO: move this all to another file maybe? This file should only deal with general structure
+class PageOneBlock(tk.Frame):
+
+    def __init__(self, parent, controller):
+        tk.Frame.__init__(self, parent)
+        self.topFrame = self
+        self.topFrame.configure(background="black")
+        self.isRunning = False
+        self.reset_it = False
+        self.stopValues = {}
+        self.stop = {}
+        self.baseSeconds = 0
+        self.baseDeciseconds = 0
+		################### FUNCTIONAL BUTTONS ##########################
+        self.clockImage = tk.PhotoImage(file="clock.png")
+        self.resetButton = tk.PhotoImage(file="reset-button.png")
+        self.dodgeButton = tk.PhotoImage(file="dodge-button.png")
+        self.burnButton = tk.PhotoImage(file="burn-button.png")
+        self.clock = Button(self.topFrame, image=self.clockImage, font = (None,45), text="000.0", command=self.run, bg = 'black',fg = 'red', compound='center', activebackground='black', activeforeground='red', highlightthickness=0, borderwidth=0)
+        self.clock.grid(row=1,column=20, columnspan=6, rowspan=6, padx=5, pady=5)
+
+        self.menu1 = Button(self.topFrame, image=self.resetButton, bg = 'black',fg = 'red', compound='center', command=self.reset, activebackground='black', activeforeground='red', highlightthickness=0, borderwidth=0)
+        self.menu1.grid(row=1, column=35)
+
+        self.menu2 = Button(self.topFrame, image=self.dodgeButton, bg = 'black',fg = 'red', compound='center', activebackground='black', activeforeground='red', highlightthickness=0, borderwidth=0)
+        self.menu2.grid(row=3, column=35)
+
+        self.menu3 = Button(self.topFrame, image=self.burnButton, bg = 'black',fg = 'red', compound='center', activebackground='black', activeforeground='red', highlightthickness=0, borderwidth=0)
+        self.menu3.grid(row=5, column=35)
+		################### FUNCTIONAL BUTTONS ##########################
+
+        ################### F/STOP BUTTONS  ##########################
+        self.upButton = tk.PhotoImage(file="up-button.png")
+        self.downButton = tk.PhotoImage(file="down-button.png")
+
+        self.stopValues[0] = 0
+        self.stop[0] = tk.Label(self.topFrame, font=(None, 35), text = 10, fg = 'red', bg = 'black')
+        self.stop[0].grid(row=3,column=2, padx=3, pady=2)
+
+        self.addButton0 = Button(self.topFrame, image=self.upButton, command=lambda:self.up(0,10), highlightthickness=0, borderwidth=0,bg = 'black', activebackground='black', activeforeground='red')
+        self.addButton0.grid(row=1,column=2, padx=3, pady=2)
+
+        self.subButton0 = Button(self.topFrame, image=self.downButton, command=lambda:self.down(0,10),highlightthickness=0, borderwidth=0,bg = 'black', activebackground='black', activeforeground='red')
+        self.subButton0.grid(row=5,column=2, padx=3, pady=2)
+
+        self.stopValues[1] = 0
+        self.stop[1] = tk.Label(self.topFrame, font=(None, 35), text = 5, fg = 'red', bg = 'black')
+        self.stop[1].grid(row=3,column=7)
+
+        self.addButton1 = Button(self.topFrame, image=self.upButton, command=lambda: self.up(1,5), font = (None, 25), highlightthickness=0, borderwidth=0,bg = 'black', activebackground='black', activeforeground='red')
+        self.addButton1.grid(row=1,column=7, padx=3, pady=2)
+
+        self.subButton1 = Button(self.topFrame, image=self.downButton, command=lambda: self.down(1,5), font = (None, 25), highlightthickness=0, borderwidth=0,bg = 'black', activebackground='black', activeforeground='red')
+        self.subButton1.grid(row=5,column=7, padx=3, pady=2)
+
+        self.stopValues[2] = 0
+        self.stop[2] = tk.Label(self.topFrame, font=(None, 35), text = 1, fg = 'red', bg = 'black')
+        self.stop[2].grid(row=3,column=12, padx=3, pady=2)
+
+        self.addButton2 = Button(self.topFrame, image=self.upButton, command=lambda: self.up(2,1), font = (None, 25), highlightthickness=0, borderwidth=0,bg = 'black', activebackground='black', activeforeground='red')
+        self.addButton2.grid(row=1,column=12, padx=3, pady=2)
+
+        self.subButton2 = Button(self.topFrame, image=self.downButton, command=lambda: self.down(2,1),font = (None, 25), highlightthickness=0, borderwidth=0,bg = 'black', activebackground='black', activeforeground='red')
+        self.subButton2.grid(row=5,column=12, padx=3, pady=2)
+
+        self.stopValues[3] = 0
+        self.stop[3] = tk.Label(self.topFrame, font=(None, 35), text = .1, fg = 'red', bg = 'black')
+        self.stop[3].grid(row=3,column=17)
+
+        self.addButton3 = Button(self.topFrame, image=self.upButton, command=lambda: self.up(3,1), font = (None, 25), highlightthickness=0, borderwidth=0,bg = 'black', activebackground='black', activeforeground='red')
+        self.addButton3.grid(row=1,column=17, padx=3, pady=2)
+
+        self.subButton3 = Button(self.topFrame, image=self.downButton, command=lambda: self.down(3,1),font = (None, 25), highlightthickness=0, borderwidth=0,bg = 'black', activebackground='black', activeforeground='red')
+        self.subButton3.grid(row=5,column=17, padx=3, pady=2)
+        ################### F/STOP BUTTONS ##########################
+
+    ################### FUNCTIONAL METHODS ##########################
+    def countdown(self, sec, deci, firstTime):
+        GPIO.setmode(GPIO.BCM)
+        GPIO.setwarnings(False)
+        GPIO.setup(26, GPIO.OUT)
+        self.focus()
+        if firstTime:
+            GPIO.output(26, GPIO.LOW)
+        if self.isRunning and self.reset_it == False:
+        	self.clock['text'] = str(sec) + "." + str(deci)
+
+        	if deci > 0:
+        		self.topFrame.after(100, self.countdown, sec, deci - 1, False)
+        	elif sec > 0 and deci == 0:
+        		self.topFrame.after(100, self.countdown, sec - 1, 9, False)
+        	else:
+                    self.handleDone()
+                    self.clock['text']='0.0'
+                    
+
+    def run(self):
+        self.focus()
+        #RESET CASE
+        if self.reset_it:
+        	self.count = IntVar()
+        	self.count= str(self.baseSeconds) + '.' + str(self.baseDeciseconds)
+        	self.clock['text'] = self.count
+        	self.isRunning = False
+        	self.reset_it = False
+
+        #OTHER RUNNING OPERATIONS
+        else:
+        	#PAUSED
+        	if self.isRunning:
+        		self.isRunning = False
+
+        	#START/CONTINUE
+        	else:
+        		self.count = str(self.clock['text'])
+        		self.isRunning = True
+
+        		#TODO: MAKE THIS PARSE SMARTER
+        		self.sec = int(self.count.split('.')[0])
+        		self.deci = int(self.count.split('.')[1])
+        		self.countdown(self.sec, self.deci, True)
+
+    def reset(self):
+        self.focus()
+
+        for key in self.stopValues:
+            self.updateTextButton(key)
+
+        self.reset_it = True
+        self.run()
+
+    def up(self,val, amt):
+        if self.isRunning == False:
+            self.stopValues[val] +=amt
+
+            if val == 3:
+                self.baseDeciseconds+=amt
+            else:
+                self.baseSeconds+=amt
+            self.updateTextButton(val)
+            self.focus()
+
+    def down(self,val, amt):
+	    if self.stopValues[val] != 0:
+	    	if self.isRunning == False:
+	    		self.stopValues[val] -=amt
+
+	    		if val == 3:
+	    			self.baseDeciseconds-=amt
+	    		else:
+	    			self.baseSeconds-=amt
+	    		self.updateTextButton(val)
+	    self.focus()
+    ################### FUNCTIONAL METHODS ##########################
+
+	################### UPDATE METHODS ##########################
+    def updatetext(self,event):
+        self.clock['text'] = str(self.baseSeconds) + "." + str(self.baseDeciseconds)
+        self.topFrame.update_idletasks()
+
+    def updateTextButton(self,val):
+        # stop[val]['text'] = stopValues[val]
+        self.clock['text'] = str(self.baseSeconds) + "." + str(self.baseDeciseconds)
+        self.topFrame.update_idletasks()
+        
+    def handleDone(self):
+        self.isRunning = False
+        GPIO.output(26, GPIO.HIGH)
+	################### UPDATE METHODS ##########################
 
 
-################### F/STOP BUTTONS ##########################
-stopValues[0] = 0
-stop[0] = TK.Label(topFrame, font=(None, 35), text = stopValues[0])
-stop[0].grid(row=1,column=3)
 
-addButton0 = Button(topFrame, text='+', command=lambda: up(0), font = (None, 25))
-addButton0.grid(row=5,column=4)
+class PageTwo(tk.Frame):
 
-subButton0 = Button(topFrame, text='-', command=lambda: down(0), font = (None, 25))
-subButton0.grid(row=5,column=2)
+    def __init__(self, parent, controller):
+        tk.Frame.__init__(self, parent)
+        label = tk.Label(self, text="Page Two!!!", font=LARGE_FONT)
+        label.pack(pady=10,padx=10)
 
-stopValues[1] = 0
-stop[1] = TK.Label(topFrame, font=(None, 35), text = stopValues[1])
-stop[1].grid(row=1,column=7)
+        button1 = tk.Button(self, text="Back to Home",
+                            command=lambda: controller.show_frame(StartPage))
+        button1.pack()
 
-addButton1 = Button(topFrame, text='+', command=lambda: up(1), font = (None, 25))
-addButton1.grid(row=5,column=8)
-
-subButton1 = Button(topFrame, text='-', command=lambda: down(1), font = (None, 25))
-subButton1.grid(row=5,column=6)
-
-stopValues[2] = 0
-stop[2] = TK.Label(topFrame, font=(None, 35), text = stopValues[2])
-stop[2].grid(row=1,column=11)
-
-addButton2 = Button(topFrame, text='+', command=lambda: up(2), font = (None, 25))
-addButton2.grid(row=5,column=12)
-
-subButton2 = Button(topFrame, text='-', command=lambda: down(2),font = (None, 25))
-subButton2.grid(row=5,column=10)
-################### F/STOP BUTTONS ##########################
-
-
-window.mainloop()
+        button2 = tk.Button(self, text="Page One",
+                            command=lambda: controller.show_frame(PageOne))
+        button2.pack()
 
 
 
+
+app=MainApplication()
+app.mainloop()
